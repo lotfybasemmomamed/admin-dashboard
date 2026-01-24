@@ -70,8 +70,8 @@ export const generateFakeData = (count = 200) => {
       id: i,
       name: `${name} ${lastName}`,
       email: `${name.toLowerCase()}${i}@example.com`,
-      age: Math.floor(Math.random() * 40) + 20, // من 20 إلى 60
-      phone: `01${Math.floor(100000000 + Math.random() * 900000000)}`, // رقم عشوائي
+      age: Math.floor(Math.random() * 40) + 20,
+      phone: `01${Math.floor(100000000 + Math.random() * 900000000)}`, 
       access: accesses[Math.floor(Math.random() * accesses.length)],
     });
   }
@@ -81,4 +81,3 @@ export const generateFakeData = (count = 200) => {
 !localStorage.getItem("teamPageFakeData") &&
   localStorage.setItem("teamPageFakeData", JSON.stringify(generateFakeData()));
 
-// export const fakeTableData = generateFakeData(200);

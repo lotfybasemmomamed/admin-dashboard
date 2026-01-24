@@ -9,6 +9,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TeamPage from "./views/team/TeamPage";
+import CantactsPage from "./views/contacts/ContactsPage";
 
 function App() {
   const [mode, setMode] = useState(getThemeMode());
@@ -47,6 +48,7 @@ function App() {
                 
               >
                 <Route path="team" element={<TeamPage/>}/>
+                <Route path="contacts" element={<CantactsPage/>}/>
              </Route>
             </Routes>
           </div>
