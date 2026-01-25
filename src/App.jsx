@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from "@mui/material";
+import {  createTheme, ThemeProvider } from "@mui/material";
 import MainDashboard from "./views/dashboard/Dashboard";
 import { useState } from "react";
 import { getThemeMode } from "./utils/ThemeService";
@@ -13,6 +13,7 @@ import CantactsPage from "./views/contacts/ContactsPage";
 import InvoicePage from "./views/invoices/InvoicesPage";
 import AddUser from "./views/adduser/AddUser";
 import Calendar from "./views/calendar/Calendar";
+import FAQ from "./views/faq/FAQ";
 
 function App() {
   const [mode, setMode] = useState(getThemeMode());
@@ -55,6 +56,7 @@ function App() {
                 <Route path="invoices" element={<InvoicePage/>}/>
                 <Route path="adduser" element={<AddUser/>}/>
                 <Route path="calendar" element={<Calendar/>}/>
+                <Route path="faq" element={<FAQ/>}/>
              </Route>
             </Routes>
           </div>
