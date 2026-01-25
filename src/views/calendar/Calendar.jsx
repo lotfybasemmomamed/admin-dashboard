@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { formatDate } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import Swal from "sweetalert2";
 import {
   Dialog,
   DialogTitle,
@@ -23,64 +21,24 @@ import {
   List,
   ListItem,
   ListItemText,
-  useTheme,
 } from "@mui/material";
+import useCalendar from "../../hooks/useCalendar";
 
 export default function Calendar() {
-  const theme = useTheme();
-  const [weekendsVisible, setWeekendsVisible] = useState(true);
-  const [currentEvents, setCurrentEvents] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [newEventTitle, setNewEventTitle] = useState("");
-  const [selectedDateInfo, setSelectedDateInfo] = useState(null);
-  function handleWeekendsToggle() {
-    setWeekendsVisible(!weekendsVisible);
-  }
-
-  function handleEventClick(clickInfo) {
-    Swal.fire({
-      title: "Are you sure?",
-      text: `You want to delete '${clickInfo.event.title}'`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-      background: theme.palette.mode === "dark" ? "#1e1e1e" : "#fff",
-      color: theme.palette.mode === "dark" ? "#fff" : "#000",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        clickInfo.event.remove();
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your event has been deleted.",
-          icon: "success",
-          background: theme.palette.mode === "dark" ? "#1e1e1e" : "#fff",
-          color: theme.palette.mode === "dark" ? "#fff" : "#000",
-        });
-      }
-    });
-  }
-
-  function handleDateSelect(selectInfo) {
-    setSelectedDateInfo(selectInfo);
-    setOpen(true);
-  }
-
-  const handleCloseAndAddEvent = () => {
-    if (newEventTitle) {
-      let calendarApi = selectedDateInfo.view.calendar;
-      calendarApi.addEvent({
-        id: String(Date.now()),
-        title: newEventTitle,
-        start: selectedDateInfo.startStr,
-        end: selectedDateInfo.endStr,
-        allDay: selectedDateInfo.allDay,
-      });
-    }
-    setOpen(false);
-    setNewEventTitle("");
-  };
+  const {
+    theme,
+    setCurrentEvents,
+    setOpen,
+    open,
+    currentEvents,
+    handleWeekendsToggle,
+    handleEventClick,
+    handleDateSelect,
+    handleCloseAndAddEvent,
+    newEventTitle,
+    setNewEventTitle,
+    weekendsVisible,
+  } = useCalendar();
 
   return (
     <>
