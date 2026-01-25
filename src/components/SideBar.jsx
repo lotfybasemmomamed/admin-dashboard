@@ -88,7 +88,7 @@ export default function SideBar({ open, handleDrawerClose }) {
   ];
 
   const links_2 = [
-    { text: "Profile Form", icon: <PersonOutlinedIcon />, path: "/form" },
+    { text: "Profile Form", icon: <PersonOutlinedIcon />, path: "/adduser" },
     {
       text: "Calendar",
       icon: <CalendarTodayOutlinedIcon />,

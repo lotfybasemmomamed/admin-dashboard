@@ -4,9 +4,10 @@ import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import { columns } from "./mockData";
 import { DataGrid } from "@mui/x-data-grid";
+import Title from "../../components/Title";
 export default function TeamPage() {
   const theme = useTheme();
-  const fakeData =JSON.parse(localStorage.getItem("teamPageFakeData")) ;
+  const fakeData = JSON.parse(localStorage.getItem("teamPageFakeData"));
 
   const columnsWithTheme = columns.map((col) => {
     if (col.field === "access") {
@@ -17,11 +18,15 @@ export default function TeamPage() {
           const access = params.row.access.toLowerCase();
           const accessStyles = {
             admin: {
-              bg: isDark ? theme.palette.primary.dark : theme.palette.primary.light,
+              bg: isDark
+                ? theme.palette.primary.dark
+                : theme.palette.primary.light,
               icon: <AdminPanelSettingsOutlinedIcon fontSize="small" />,
             },
             manager: {
-              bg: isDark ? theme.palette.secondary.dark : theme.palette.secondary.light,
+              bg: isDark
+                ? theme.palette.secondary.dark
+                : theme.palette.secondary.light,
               icon: <SecurityOutlinedIcon fontSize="small" />,
             },
             user: {
@@ -73,8 +78,15 @@ export default function TeamPage() {
   });
 
   return (
-    <Box sx={{ mx: "auto", width: "98%", overflowX: "auto" }}>
-      <DataGrid rows={fakeData} columns={columnsWithTheme} density="comfortable" />
-    </Box>
+    <>
+      <Title title="manage team Table" />
+      <Box sx={{ mx: "auto", width: "98%", overflowX: "auto" }}>
+        <DataGrid
+          rows={fakeData}
+          columns={columnsWithTheme}
+          density="comfortable"
+        />
+      </Box>
+    </>
   );
 }

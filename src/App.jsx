@@ -10,6 +10,8 @@ import { prefixer } from "stylis";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TeamPage from "./views/team/TeamPage";
 import CantactsPage from "./views/contacts/ContactsPage";
+import InvoicePage from "./views/invoices/InvoicesPage";
+import AddUser from "./views/adduser/AddUser";
 
 function App() {
   const [mode, setMode] = useState(getThemeMode());
@@ -49,6 +51,8 @@ function App() {
               >
                 <Route path="team" element={<TeamPage/>}/>
                 <Route path="contacts" element={<CantactsPage/>}/>
+                <Route path="invoices" element={<InvoicePage/>}/>
+                <Route path="adduser" element={<AddUser/>}/>
              </Route>
             </Routes>
           </div>
