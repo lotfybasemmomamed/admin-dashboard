@@ -18,14 +18,24 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { Avatar, Box, styled, Typography, useTheme } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  styled,
+  Tooltip,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function SideBar({ open, handleDrawerClose }) {
   const theme = useTheme();
   const drawerWidth = 240;
-  const navigate = useNavigate() 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname;
+  console.log("currentPath", currentPath);
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
@@ -34,8 +44,17 @@ export default function SideBar({ open, handleDrawerClose }) {
     ...theme.mixins.toolbar,
   }));
 
+
+  const bgActiveLink = (linkPath) =>
+    location.pathname === linkPath
+      ? (theme) =>
+          theme.palette.mode === "dark"
+            ? theme.palette.grey[800]
+            : theme.palette.grey[300]
+      : "transparent";
   const Drawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== "open",
+    // @ts-ignore
   })(({ theme, open }) => ({
     width: drawerWidth,
     flexShrink: 0,
@@ -174,34 +193,43 @@ export default function SideBar({ open, handleDrawerClose }) {
           {[links_1, links_2, links_3].map((group, index) => (
             <List key={index}>
               {group.map((link) => (
-                <ListItem
-                  key={link.text}
-                  disablePadding
-                  sx={{ display: "block" }}
-                >
-                  <ListItemButton
-                  onClick={()=>navigate(link.path)}
-                    sx={{
-                      minHeight: 48,
-                      px: 2.5,
-                      justifyContent: open ? "initial" : "center",
-                    }}
+                <>
+                  <ListItem
+                    key={link.text}
+                    disablePadding
+                    sx={{ display: "block" }}
                   >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        justifyContent: "center",
-                        mr: open ? 3 : "auto",
-                      }}
+                    <Tooltip
+                      title={!open && link.text}
+                      placement="right"
+                      arrow
                     >
-                      {link.icon}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={link.text}
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
-                  </ListItemButton>
-                </ListItem>
+                      <ListItemButton
+                        onClick={() => navigate(link.path)}
+                        sx={{
+                          minHeight: 48,
+                          px: 2.5,
+                          justifyContent: open ? "initial" : "center",
+                          bgcolor: bgActiveLink(link.path),
+                        }}
+                      >
+                        <ListItemIcon
+                          sx={{
+                            minWidth: 0,
+                            justifyContent: "center",
+                            mr: open ? 3 : "auto",
+                          }}
+                        >
+                          {link.icon}
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={link.text}
+                          sx={{ opacity: open ? 1 : 0 }}
+                        />
+                      </ListItemButton>
+                    </Tooltip>
+                  </ListItem>
+                </>
               ))}
               {index < 2 && <Divider />}
             </List>

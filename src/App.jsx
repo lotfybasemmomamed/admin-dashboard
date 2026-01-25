@@ -12,6 +12,7 @@ import TeamPage from "./views/team/TeamPage";
 import CantactsPage from "./views/contacts/ContactsPage";
 import InvoicePage from "./views/invoices/InvoicesPage";
 import AddUser from "./views/adduser/AddUser";
+import Calendar from "./views/calendar/Calendar";
 
 function App() {
   const [mode, setMode] = useState(getThemeMode());
@@ -53,6 +54,7 @@ function App() {
                 <Route path="contacts" element={<CantactsPage/>}/>
                 <Route path="invoices" element={<InvoicePage/>}/>
                 <Route path="adduser" element={<AddUser/>}/>
+                <Route path="calendar" element={<Calendar/>}/>
              </Route>
             </Routes>
           </div>
