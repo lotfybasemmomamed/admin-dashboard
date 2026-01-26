@@ -11,7 +11,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import Title from "../../components/Title";
+import Title from "../../components/HeadPage";
 import useAddUser from "../../hooks/useAddUser";
 
 export default function AddUser() {

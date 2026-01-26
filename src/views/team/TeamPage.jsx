@@ -4,7 +4,7 @@ import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import { columns } from "./mockData";
 import { DataGrid } from "@mui/x-data-grid";
-import Title from "../../components/Title";
+import Title from "../../components/HeadPage";
 export default function TeamPage() {
   const theme = useTheme();
   const fakeData = JSON.parse(localStorage.getItem("teamPageFakeData"));

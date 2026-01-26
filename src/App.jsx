@@ -1,4 +1,4 @@
-import {  createTheme, ThemeProvider } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 import MainDashboard from "./views/dashboard/Dashboard";
 import { useState } from "react";
 import { getThemeMode } from "./utils/ThemeService";
@@ -14,6 +14,9 @@ import InvoicePage from "./views/invoices/InvoicesPage";
 import AddUser from "./views/adduser/AddUser";
 import Calendar from "./views/calendar/Calendar";
 import FAQ from "./views/faq/FAQ";
+import BarChart from "./views/barChart/BarChart";
+import PieChart from "./views/pieChart/PieChart";
+import LineChart from "./views/lineChart/LineChart";
 
 function App() {
   const [mode, setMode] = useState(getThemeMode());
@@ -22,6 +25,7 @@ function App() {
   const theme = createTheme({
     direction: direction,
     palette: {
+      // @ts-ignore
       mode: mode,
     },
     typography: {
@@ -49,15 +53,17 @@ function App() {
                     setLang={setLang}
                   />
                 }
-                
               >
-                <Route path="team" element={<TeamPage/>}/>
-                <Route path="contacts" element={<CantactsPage/>}/>
-                <Route path="invoices" element={<InvoicePage/>}/>
-                <Route path="adduser" element={<AddUser/>}/>
-                <Route path="calendar" element={<Calendar/>}/>
-                <Route path="faq" element={<FAQ/>}/>
-             </Route>
+                <Route path="team" element={<TeamPage />} />
+                <Route path="contacts" element={<CantactsPage />} />
+                <Route path="invoices" element={<InvoicePage />} />
+                <Route path="adduser" element={<AddUser />} />
+                <Route path="calendar" element={<Calendar />} />
+                <Route path="faq" element={<FAQ />} />
+                <Route path="bar" element={<BarChart />} />
+                <Route path="pie" element={<PieChart />} />
+                <Route path="line" element={<LineChart />} />
+              </Route>
             </Routes>
           </div>
         </BrowserRouter>

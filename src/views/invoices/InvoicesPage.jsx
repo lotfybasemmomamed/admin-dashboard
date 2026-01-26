@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { columns } from "./mockData";
-import Title from "../../components/Title";
+import Title from "../../components/HeadPage";
 
 export default function InvoicePage() {
   const fakeData = JSON.parse(localStorage.getItem("invoicesPageFakeData"));

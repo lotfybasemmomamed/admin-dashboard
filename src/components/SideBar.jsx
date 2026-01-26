@@ -35,7 +35,6 @@ export default function SideBar({ open, handleDrawerClose }) {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
-  console.log("currentPath", currentPath);
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
@@ -46,7 +45,7 @@ export default function SideBar({ open, handleDrawerClose }) {
 
 
   const bgActiveLink = (linkPath) =>
-    location.pathname === linkPath
+    currentPath === linkPath
       ? (theme) =>
           theme.palette.mode === "dark"
             ? theme.palette.grey[800]
