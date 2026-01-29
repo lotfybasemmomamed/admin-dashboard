@@ -1,7 +1,7 @@
 import { Box, Stack, useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 
-const data = [
+const barData = [
   {
     year: 2020,
     Spain: 1108,
@@ -39,7 +39,7 @@ const data = [
     Germany: 2120,
   },
 ];
-export default function Bar() {
+export default function Bar({keys=["Spain", "France", "Germany"],data=barData,indexBy="year",axisBottomLegend="Year",axisLeftLegend="Country"}) {
   const theme = useTheme();
 
   const isDark = theme.palette.mode === "dark";
@@ -47,9 +47,9 @@ export default function Bar() {
   return (
     <Stack sx={{ height: "70vh" }}>
       <ResponsiveBar
-        keys={["Spain", "France", "Germany"]}
+        keys={keys}
         data={data}
-        indexBy="year"
+        indexBy={indexBy}
         labelSkipWidth={12}
         labelSkipHeight={12}
         colors={{ scheme: "dark2" }}
@@ -65,8 +65,8 @@ export default function Bar() {
             itemHeight: 16,
           },
         ]}
-        axisBottom={{ legend: "Year", legendOffset: 35 }}
-        axisLeft={{ legend: "Country", legendOffset: -50 }}
+        axisBottom={{ legend: axisBottomLegend, legendOffset: 35 }}
+        axisLeft={{ legend: axisLeftLegend, legendOffset: -50 }}
         animate={false}
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         valueFormat=" >-$"

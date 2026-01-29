@@ -1,7 +1,7 @@
 import { Stack, useTheme } from "@mui/material";
 import { ResponsiveLine } from "@nivo/line";
 
-const data = [
+const performanceAnalyticsdata = [
   {
     id: "New Users",
     data: [
@@ -54,7 +54,7 @@ const data = [
     ],
   },
 ];
-export default function Line() {
+export default function Line({data=performanceAnalyticsdata,axiosleftWord="count",axiosBottomWord="transportation"}) {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
   const textColor = isDark ? "#fff" : "#333333";
@@ -66,13 +66,13 @@ export default function Line() {
         margin={{ top: 20, right: 140, bottom: 50, left: 60 }}
         yScale={{
           type: "linear",
-          min: "auto",
+          min: 0,
           max: "auto",
           stacked: true,
           reverse: false,
         }}
-        axisBottom={{ legend: "transportation", legendOffset: 36 }}
-        axisLeft={{ legend: "count", legendOffset: -40 }}
+        axisBottom={{ legend: axiosBottomWord, legendOffset: 36 }}
+        axisLeft={{ legend: axiosleftWord, legendOffset: -50 }}
         enableGridX={false}
         enableGridY={false}
         colors={{ scheme: "dark2" }}
@@ -190,7 +190,6 @@ export default function Line() {
             },
           },
           tooltip: {
-            wrapper: {},
             container: {
               background: isDark ? "#333333" : "#fff",
               color: textColor,

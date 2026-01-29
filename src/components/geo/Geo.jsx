@@ -8,12 +8,28 @@ import { Box, Stack, useTheme } from "@mui/material";
 
 
 
-export default function Geo() {
+export default function Geo({legends=true}) {
     const theme = useTheme();
     const isDark = theme.palette.mode === "dark";
     const textColor = isDark ? "#fff" : "#333333";
+    const legend =legends?[
+        {
+          anchor: "bottom-left",
+          direction: "column",
+          justify: true,
+          translateX: 20,
+          translateY: -1,
+          itemsSpacing: 0,
+          itemWidth: 94,
+          itemHeight: 18,
+          itemDirection: "left-to-right",
+          itemTextColor: textColor,
+          itemOpacity: 0.85,
+          symbolSize: 18,
+        }
+      ]:undefined
   return (
-    <Box sx={{ width:"98%",mx:"auto",border:`2px solid ${textColor}`,px:2,pb:2}}>
+    <Box sx={{ width:"98%",mx:"auto",px:2,pb:2,border:legends&&`2px solid ${textColor}`}}>
       <Box sx={{ height: "70vh"}}>
     <ResponsiveChoropleth 
       data={data}
@@ -28,22 +44,7 @@ export default function Geo() {
       graticuleLineColor="#dddddd"
       borderWidth={0.5}
       borderColor="#152538"
-      legends={[
-        {
-          anchor: "bottom-left",
-          direction: "column",
-          justify: true,
-          translateX: 20,
-          translateY: -1,
-          itemsSpacing: 0,
-          itemWidth: 94,
-          itemHeight: 18,
-          itemDirection: "left-to-right",
-          itemTextColor: textColor,
-          itemOpacity: 0.85,
-          symbolSize: 18,
-        },
-      ]}
+      legends={legend}
        theme={{
           text: {
             fontSize: 11,
@@ -140,7 +141,6 @@ export default function Geo() {
             },
           },
           tooltip: {
-            wrapper: {},
             container: {
               background: isDark ? "#333333" : "#fff",
               color: textColor,

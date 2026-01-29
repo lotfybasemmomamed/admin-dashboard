@@ -18,6 +18,7 @@ import BarChart from "./views/barChart/BarChart";
 import PieChart from "./views/pieChart/PieChart";
 import LineChart from "./views/lineChart/LineChart";
 import Geography from "./views/geography/Geography";
+import Home from "./views/home/Home";
 
 function App() {
   const [mode, setMode] = useState(getThemeMode());
@@ -65,6 +66,7 @@ function App() {
                 <Route path="pie" element={<PieChart />} />
                 <Route path="line" element={<LineChart />} />
                 <Route path="geography" element={<Geography />} />
+                <Route path="/" element={<Home />} />
               </Route>
             </Routes>
           </div>
