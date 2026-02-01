@@ -19,6 +19,7 @@ import PieChart from "./views/pieChart/PieChart";
 import LineChart from "./views/lineChart/LineChart";
 import Geography from "./views/geography/Geography";
 import Home from "./views/home/Home";
+import NotFound from "./views/notFound/NotFound";
 
 function App() {
   const [mode, setMode] = useState(getThemeMode());
@@ -67,6 +68,7 @@ function App() {
                 <Route path="line" element={<LineChart />} />
                 <Route path="geography" element={<Geography />} />
                 <Route path="/" element={<Home />} />
+                <Route path="/*" element={<NotFound />} />
               </Route>
             </Routes>
           </div>
