@@ -1,0 +1,32 @@
+export const addUserLocalization = {
+  en: {
+    pageTitle: "ADD New USER",
+    successMsg: "Account created successfully!",
+    firstName: "First Name",
+    lastName: "Last Name",
+    email: "E-Mail",
+    phone: "Phone Number",
+    address1: "Address 1",
+    address2: "Address 2",
+    role: "Role",
+    admin: "Admin",
+    manager: "Manager",
+    user: "User",
+    btnSubmit: "Add New User",
+  },
+  ar: {
+    pageTitle: "إضافة مستخدم جديد",
+    successMsg: "تم إنشاء الحساب بنجاح!",
+    firstName: "الاسم الأول",
+    lastName: "الاسم الأخير",
+    email: "البريد الإلكتروني",
+    phone: "رقم الهاتف",
+    address1: "العنوان 1",
+    address2: "العنوان 2",
+    role: "الصلاحية",
+    admin: "مشرف",
+    manager: "مدير",
+    user: "مستخدم",
+    btnSubmit: "إضافة المستخدم",
+  }
+};

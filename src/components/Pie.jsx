@@ -1,34 +1,12 @@
 import { Stack, useTheme } from "@mui/material";
 import { ResponsivePie } from "@nivo/pie";
-const data = [
-  {
-    id: "Admins",
-    label: "Admins",
-    value: 15,
-    color: "hsl(210, 70%, 50%)",
-  },
-  {
-    id: "Managers",
-    label: "Managers",
-    value: 35,
-    color: "hsl(150, 70%, 50%)",
-  },
-  {
-    id: "Users",
-    label: "Users",
-    value: 120,
-    color: "hsl(280, 70%, 50%)",
-  },
-  {
-    id: "Subscribers",
-    label: "Subscribers",
-    value: 80,
-    color: "hsl(10, 70%, 50%)",
-  },
-];
+import { useTranslation } from "react-i18next";
 
-export default function Pie() {
+
+export default function Pie({data}) {
   const theme = useTheme();
+  const { t } = useTranslation("barPageLocalization");
+  const isRtl = theme.direction == "rtl";
 
   const isDark = theme.palette.mode === "dark";
   const textColor = isDark ? "#fff" : "#333333";
@@ -36,11 +14,18 @@ export default function Pie() {
     <Stack sx={{ height: "70vh" }}>
       <ResponsivePie
         data={data}
+        arcLinkLabel={(d) => t(d.id)}
         margin={{ top: 25, right: 25, bottom: 25, left: 25 }}
         valueFormat=" >-"
         innerRadius={0.5}
         padAngle={0.6}
         cornerRadius={2}
+
+
+    
+        arcLinkLabelsTextOffset={isRtl? 45:12}
+
+
         activeOuterRadiusOffset={8}
         colors={{ scheme: "dark2" }}
         arcLinkLabelsSkipAngle={10}

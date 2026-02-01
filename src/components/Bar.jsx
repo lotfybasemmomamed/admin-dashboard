@@ -1,5 +1,11 @@
 import { Box, Stack, useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
+import { useTranslation } from "react-i18next";
+import i18next from "../utils/i18next";
+import { barPageLocalization } from "../views/barChart/localization/barPageLocalization";
+
+i18next.addResourceBundle("en", "barPageLocalization", barPageLocalization.en);
+i18next.addResourceBundle("ar", "barPageLocalization", barPageLocalization.ar);
 
 const barData = [
   {
@@ -39,9 +45,16 @@ const barData = [
     Germany: 2120,
   },
 ];
-export default function Bar({keys=["Spain", "France", "Germany"],data=barData,indexBy="year",axisBottomLegend="Year",axisLeftLegend="Country"}) {
+export default function Bar({
+  keys = ["Spain", "France", "Germany"],
+  data = barData,
+  indexBy = "year",
+  axisBottomLegend = "",
+  axisLeftLegend = "",
+}) {
   const theme = useTheme();
-
+  const { t } = useTranslation("barPageLocalization");
+  const isRtl = theme.direction == "rtl";
   const isDark = theme.palette.mode === "dark";
   const textColor = isDark ? "#fff" : "#333333";
   return (
@@ -54,6 +67,7 @@ export default function Bar({keys=["Spain", "France", "Germany"],data=barData,in
         labelSkipHeight={12}
         colors={{ scheme: "dark2" }}
         borderColor={{ from: "color", modifiers: [] }}
+        legendLabel={(datum) => t(datum.id)}
         legends={[
           {
             dataFrom: "keys",
@@ -63,10 +77,18 @@ export default function Bar({keys=["Spain", "France", "Germany"],data=barData,in
             itemsSpacing: 3,
             itemWidth: 100,
             itemHeight: 16,
+            itemDirection: isRtl ? "right-to-left" : "left-to-right",
+            symbolSpacing:isRtl?axisLeftLegend?60:30:10
           },
         ]}
-        axisBottom={{ legend: axisBottomLegend, legendOffset: 35 }}
-        axisLeft={{ legend: axisLeftLegend, legendOffset: -50 }}
+        axisBottom={{
+          legend: axisBottomLegend || t("year"),
+          legendOffset: 35,
+        }}
+        axisLeft={{
+          legend: axisLeftLegend || t("country"),
+          legendOffset: -50,
+        }}
         animate={false}
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         valueFormat=" >-$"

@@ -1,9 +1,12 @@
 import { Box, Paper, Stack, Typography, useTheme } from "@mui/material";
 import { revenueData, transactionData } from "../utils/revenueData";
 import Line from "../../../components/Line";
+import { useTranslation } from "react-i18next";
 
 export default function RevenueOverview() {
   const theme = useTheme();
+  const { t } = useTranslation("homePageLocalization");
+
   return (
     <Stack
       display={"flex"}
@@ -26,7 +29,7 @@ export default function RevenueOverview() {
               textTransform: "capitalize",
             }}
           >
-            Revenue Generated
+            {t("revenue_overview.revenue_generated")}
           </Typography>
 
           <Typography
@@ -54,7 +57,7 @@ export default function RevenueOverview() {
             p={1.2}
             variant="h6"
           >
-            Recent Transactions
+            {t("revenue_overview.recent_transactions")}
           </Typography>
         </Paper>
         <Box display="flex" flexDirection={"column"} gap={"8px"}>

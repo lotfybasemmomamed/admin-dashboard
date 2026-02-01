@@ -18,6 +18,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import i18next from "../../utils/i18next";
 import {
   Avatar,
   Box,
@@ -28,8 +29,14 @@ import {
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { sidebarlocalizations } from "./localization/sideBarLocalization";
+
+i18next.addResourceBundle("en", "sidebar", sidebarlocalizations.en);
+i18next.addResourceBundle("ar", "sidebar", sidebarlocalizations.ar);
 
 export default function SideBar({ open, handleDrawerClose }) {
+  const { t } = useTranslation("sidebar");
   const theme = useTheme();
   const drawerWidth = 240;
   const navigate = useNavigate();
@@ -42,7 +49,6 @@ export default function SideBar({ open, handleDrawerClose }) {
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
   }));
-
 
   const bgActiveLink = (linkPath) =>
     currentPath === linkPath
@@ -91,39 +97,31 @@ export default function SideBar({ open, handleDrawerClose }) {
   });
 
   const links_1 = [
-    { text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/" },
-    { text: "Manage Team", icon: <PeopleOutlinedIcon />, path: "/team" },
-    {
-      text: "Contacts Information",
-      icon: <ContactsOutlinedIcon />,
-      path: "/contacts",
-    },
-    {
-      text: "Invoices Balances",
-      icon: <ReceiptOutlinedIcon />,
-      path: "/invoices",
-    },
+    { text: t("dashboard"), icon: <HomeOutlinedIcon />, path: "/" },
+    { text: t("manage_team"), icon: <PeopleOutlinedIcon />, path: "/team" },
+    { text: t("contacts"), icon: <ContactsOutlinedIcon />, path: "/contacts" },
+    { text: t("invoices"), icon: <ReceiptOutlinedIcon />, path: "/invoices" },
   ];
 
   const links_2 = [
-    { text: "Profile Form", icon: <PersonOutlinedIcon />, path: "/adduser" },
+    { text: t("add_user"), icon: <PersonOutlinedIcon />, path: "/adduser" },
     {
-      text: "Calendar",
+      text: t("calendar"),
       icon: <CalendarTodayOutlinedIcon />,
       path: "/calendar",
     },
-    {
-      text: "FAQ Page",
-      icon: <HelpOutlineOutlinedIcon />,
-      path: "/faq",
-    },
+    { text: t("faq"), icon: <HelpOutlineOutlinedIcon />, path: "/faq" },
   ];
 
   const links_3 = [
-    { text: "Bar Chart", icon: <BarChartOutlinedIcon />, path: "/bar" },
-    { text: "Pie Chart", icon: <PieChartOutlineOutlinedIcon />, path: "/pie" },
-    { text: "Line Chart", icon: <TimelineOutlinedIcon />, path: "/line" },
-    { text: "Geography Chart", icon: <MapOutlinedIcon />, path: "/geography" },
+    { text: t("bar_chart"), icon: <BarChartOutlinedIcon />, path: "/bar" },
+    {
+      text: t("pie_chart"),
+      icon: <PieChartOutlineOutlinedIcon />,
+      path: "/pie",
+    },
+    { text: t("line_chart"), icon: <TimelineOutlinedIcon />, path: "/line" },
+    { text: t("geo_chart"), icon: <MapOutlinedIcon />, path: "/geography" },
   ];
 
   return (
@@ -181,7 +179,7 @@ export default function SideBar({ open, handleDrawerClose }) {
                 color: theme.palette.info.main,
               }}
             >
-              Admin
+              {t("admin")}
             </Typography>
           </Box>
         )}
@@ -198,11 +196,7 @@ export default function SideBar({ open, handleDrawerClose }) {
                     disablePadding
                     sx={{ display: "block" }}
                   >
-                    <Tooltip
-                      title={!open && link.text}
-                      placement="right"
-                      arrow
-                    >
+                    <Tooltip title={!open && link.text} placement="right" arrow>
                       <ListItemButton
                         onClick={() => navigate(link.path)}
                         sx={{

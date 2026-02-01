@@ -5,31 +5,46 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import { columns } from "./mockData";
 import { DataGrid } from "@mui/x-data-grid";
 import Title from "../../components/HeadPage";
+import { useTranslation } from "react-i18next";
+import i18next from "../../utils/i18next";
+import { teamLocalization } from "./localization/teamPageLocalization";
+
+i18next.addResourceBundle("en", "teamPage", teamLocalization.en);
+i18next.addResourceBundle("ar", "teamPage", teamLocalization.ar);
+
 export default function TeamPage() {
   const theme = useTheme();
   const fakeData = JSON.parse(localStorage.getItem("teamPageFakeData"));
+  const { t } = useTranslation("teamPage");
 
   const columnsWithTheme = columns.map((col) => {
+    const translatedHeader = t(`col_${col.field}`);
     if (col.field === "access") {
       return {
         ...col,
+        headerName: translatedHeader,
         renderCell: (params) => {
           const isDark = theme.palette.mode === "dark";
           const access = params.row.access.toLowerCase();
           const accessStyles = {
             admin: {
+              label: t("admin"),
               bg: isDark
                 ? theme.palette.primary.dark
                 : theme.palette.primary.light,
               icon: <AdminPanelSettingsOutlinedIcon fontSize="small" />,
             },
             manager: {
+              label: t("manager"),
+
               bg: isDark
                 ? theme.palette.secondary.dark
                 : theme.palette.secondary.light,
               icon: <SecurityOutlinedIcon fontSize="small" />,
             },
             user: {
+              label: t("user"),
+
               bg: isDark ? "#3da58a" : "#3fa086ff",
               icon: <LockOpenOutlinedIcon fontSize="small" />,
             },
@@ -66,7 +81,7 @@ export default function TeamPage() {
                     fontWeight: "bold",
                   }}
                 >
-                  {access}
+                  {style.label}
                 </Typography>
               </Box>
             </Box>
@@ -74,12 +89,12 @@ export default function TeamPage() {
         },
       };
     }
-    return col;
+     return { ...col, headerName: translatedHeader };;
   });
 
   return (
     <>
-      <Title title="manage team Table" />
+      <Title title={t("pageTitle")} />
       <Box sx={{ mx: "auto", width: "98%", overflowX: "auto" }}>
         <DataGrid
           rows={fakeData}

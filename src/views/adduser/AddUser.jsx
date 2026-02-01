@@ -13,6 +13,12 @@ import {
 } from "@mui/material";
 import Title from "../../components/HeadPage";
 import useAddUser from "../../hooks/useAddUser";
+import { useTranslation } from "react-i18next";
+import i18next from "../../utils/i18next";
+import { addUserLocalization } from "./localization/addUserLocalization";
+
+i18next.addResourceBundle("en", "addUser", addUserLocalization.en);
+i18next.addResourceBundle("ar", "addUser", addUserLocalization.ar);
 
 export default function AddUser() {
   const {
@@ -26,6 +32,8 @@ export default function AddUser() {
     textColor,
     bgBtn,
   } = useAddUser();
+
+  const { t } = useTranslation("addUser");
 
   return (
     <>
@@ -45,11 +53,11 @@ export default function AddUser() {
           variant="filled"
           elevation={6}
         >
-          Account created successfully!
+         { t("successMsg")}
         </Alert>
       </Snackbar>
 
-      <Title title="add new user" />
+      <Title title={t("pageTitle")}/>
       <Box
         onSubmit={handleSubmit(onsubmit)}
         component="form"
@@ -67,7 +75,7 @@ export default function AddUser() {
             helperText={errors.firstName?.message}
             {...register("firstName")}
             sx={{ flex: "1" }}
-            label="First Name"
+            label={t("firstName")}
             variant="filled"
           />
           <TextField
@@ -75,7 +83,7 @@ export default function AddUser() {
             helperText={errors.lastName?.message}
             {...register("lastName")}
             sx={{ flex: "1" }}
-            label="Last Name"
+            label={t("lastName")}
             variant="filled"
           />
         </Stack>
@@ -83,28 +91,28 @@ export default function AddUser() {
           error={!!errors.email}
           helperText={errors.email?.message}
           {...register("email")}
-          label="E-Mail"
+          label={t("email")}
           variant="filled"
         />
         <TextField
           error={!!errors.phoneNumber}
           helperText={errors.phoneNumber?.message}
           {...register("phoneNumber")}
-          label="Phone Number"
+          label={t("phone")}
           variant="filled"
         />
         <TextField
           error={!!errors.addressOne}
           helperText={errors.addressOne?.message}
           {...register("addressOne")}
-          label="Adress 1"
+          label={t("address1")}
           variant="filled"
         />
         <TextField
           error={!!errors.addressTwo}
           helperText={errors.addressTwo?.message}
           {...register("addressTwo")}
-          label="Adress 2"
+          label={t("address2")}
           variant="filled"
         />
 
@@ -114,11 +122,11 @@ export default function AddUser() {
             labelId="role-label"
             {...register("role")}
             value={watch("role")}
-            label="Role"
+            label={t("role")}
           >
-            <MenuItem value="user">User</MenuItem>
-            <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="manager">Manager</MenuItem>
+            <MenuItem value="user">{t("user")}</MenuItem>
+            <MenuItem value="admin">{t("admin")}</MenuItem>
+            <MenuItem value="manager">{t("manager")}</MenuItem>
           </Select>
           <FormHelperText>{errors.role?.message}</FormHelperText>
         </FormControl>
@@ -137,7 +145,7 @@ export default function AddUser() {
               },
             }}
           >
-            add user
+            {t("btnSubmit")}
           </Button>
         </Box>
       </Box>

@@ -1,0 +1,26 @@
+export const contactsLocalization = {
+  en: {
+    pageTitle: "CONTACTS INFORMATION",
+    col_id: "ID",
+    col_RegisterID: "Register ID",
+    col_Name: "Name",
+    col_age: "Age",
+    col_phone: "Phone",
+    col_email: "Email",
+    col_Address: "Address",
+    col_City: "City",
+    col_ZIPCode: "ZIP Code",
+  },
+  ar: {
+    pageTitle: "معلومات التواصل",
+    col_id: "المعرف",
+    col_RegisterID: "رقم التسجيل",
+    col_Name: "الاسم",
+    col_age: "العمر",
+    col_phone: "الهاتف",
+    col_email: "البريد الإلكتروني",
+    col_Address: "العنوان",
+    col_City: "المدينة",
+    col_ZIPCode: "الرمز البريدي",
+  },
+};

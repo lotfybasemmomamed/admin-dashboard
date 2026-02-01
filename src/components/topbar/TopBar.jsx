@@ -12,10 +12,15 @@ import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useState } from "react";
-import { getLanguage, setLanguage } from "../utils/LanguageService";
-import { getThemeMode, setThemeMode } from "../utils/ThemeService";
+import {setLanguage } from "../../utils/LanguageService";
+import { getThemeMode, setThemeMode } from "../../utils/ThemeService";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { useTranslation } from "react-i18next";
+import i18next from "../../utils/i18next";
+import { topBarLocalization } from "./localization/topBarLocalization";
+i18next.addResourceBundle("en", "topBarLocalization", topBarLocalization.en);
+i18next.addResourceBundle("ar", "topBarLocalization", topBarLocalization.ar);
 
 const drawerWidth = 240;
 
@@ -43,7 +48,7 @@ const AppBar = styled(MuiAppBar, {
 }));
 const CustomTooltip = styled(({ className, ...props }) => (
   <MuiTooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
+))(() => ({
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: "#1976d2",
     color: "#fff",
@@ -93,14 +98,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function TopBar({lang,setLang, mode, setMode, open, handleDrawerOpen }) {
-//   const [lang, setLang] = useState(getLanguage());
+export default function TopBar({
+  lang,
+  setLang,
+  mode,
+  setMode,
+  open,
+  handleDrawerOpen,
+}) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-
+  const { t, i18n } = useTranslation("topBarLocalization");
   function handleLang() {
     const newLang = lang === "EN" ? "AR" : "EN";
     setLanguage(newLang);
     setLang(newLang);
+    i18n.changeLanguage(newLang.toLowerCase());
+    localStorage.setItem("lang", newLang.toLowerCase());
   }
   function handleMode() {
     const newMode = mode == "dark" ? "light" : "dark";
@@ -137,17 +150,15 @@ export default function TopBar({lang,setLang, mode, setMode, open, handleDrawerO
             <MenuIcon />
           </IconButton>
 
-          {/* search input */}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder={t("search")}
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          {/* icons */}
           {isMobile ? (
             <>
               <IconButton color="inherit">
@@ -162,7 +173,6 @@ export default function TopBar({lang,setLang, mode, setMode, open, handleDrawerO
                 <ArrowDropDownIcon color="inherit" />
               </IconButton>
 
-              {/* drop down menu */}
               <Menu
                 anchorEl={anchorEl}
                 open={openMenu}
@@ -180,7 +190,7 @@ export default function TopBar({lang,setLang, mode, setMode, open, handleDrawerO
                   ) : (
                     <DarkModeOutlinedIcon sx={{ mr: 1 }} />
                   )}
-                  {mode==="light" ? "Light Mode" : "Dark Mode"}
+                  {mode === "light" ? t("dark_mode") : t("light_mode")}{" "}
                 </MenuItem>
 
                 <MenuItem
@@ -190,27 +200,38 @@ export default function TopBar({lang,setLang, mode, setMode, open, handleDrawerO
                   }}
                 >
                   <LanguageOutlinedIcon sx={{ mr: 1 }} />
-                  {lang === "EN" ? "العربية" : "English"}
+                  {t("lang_name")}
                 </MenuItem>
 
                 <MenuItem onClick={handleDropDownClose}>
                   <SettingsOutlinedIcon sx={{ mr: 1 }} />
-                  Settings
+                  {t("settings")}
                 </MenuItem>
               </Menu>
             </>
           ) : (
             <>
               <Box sx={{ marginLeft: "auto", display: "flex" }}>
-                <IconButton color="inherit" onClick={handleMode}>
-                  {getThemeMode() == "light" ? (
-                    <LightModeOutlinedIcon />
-                  ) : (
-                    <DarkModeOutlinedIcon />
-                  )}
-                </IconButton>
-
-                <CustomTooltip title={`Language: ${lang}`}>
+                <CustomTooltip
+                  title={t("mode_tooltip", {
+                    mode: mode === "light" ? t("light_mode") : t("dark_mode"),
+                  })}
+                >
+                  {" "}
+                  <IconButton color="inherit" onClick={handleMode}>
+                    {getThemeMode() == "light" ? (
+                      <LightModeOutlinedIcon />
+                    ) : (
+                      <DarkModeOutlinedIcon />
+                    )}
+                  </IconButton>
+                </CustomTooltip>
+                <CustomTooltip
+                  title={t("lang_tooltip", {
+                    lang: lang === "EN" ? "English" : "العربية",
+                  })}
+                >
+                  {" "}
                   <IconButton color="inherit" onClick={handleLang}>
                     <LanguageOutlinedIcon />
                   </IconButton>

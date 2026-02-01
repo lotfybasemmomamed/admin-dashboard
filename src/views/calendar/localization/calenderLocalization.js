@@ -1,0 +1,30 @@
+export const calendarLocalization = {
+  en: {
+    dialogTitle: "Add New Event",
+    eventLabel: "Event Title",
+    cancel: "Cancel",
+    add: "Add",
+    showWeekends: "Show Weekends",
+    allEvents: "All Events",
+    deleteTitle: "Are you sure?",
+    deleteConfirmText: "You want to delete",
+    deleteConfirmBtn: "Yes, delete it!",
+    deleteCancelBtn: "Cancel",
+    deletedTitle: "Deleted!",
+    deletedSubTitle: "Your event has been deleted.",
+  },
+  ar: {
+    dialogTitle: "إضافة حدث جديد",
+    eventLabel: "عنوان الحدث",
+    cancel: "إلغاء",
+    add: "إضافة",
+    showWeekends: "عرض عطلات نهاية الأسبوع",
+    allEvents: "كل الأحداث",
+    deleteTitle: "هل أنت متأكد؟",
+    deleteConfirmText: "هل تريد حذف",
+    deleteConfirmBtn: "!نعم، قم بالحذف",
+    deleteCancelBtn: "تراجع",
+    deletedTitle:"!تم الحذف",
+    deletedSubTitle: ".لقد تم حذف الحدث بنجاح",
+  }
+};

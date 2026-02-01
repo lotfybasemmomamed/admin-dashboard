@@ -1,9 +1,12 @@
 import { useTheme } from "@mui/material";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 
 export default function useCalendar() {
   const theme = useTheme();
+  const {t,i18n}= useTranslation("calendar")
+  const isRtl = i18n.language === "ar";
   const [newEventTitle, setNewEventTitle] = useState("");
   const [selectedDateInfo, setSelectedDateInfo] = useState(null);
   const [weekendsVisible, setWeekendsVisible] = useState(true);
@@ -16,21 +19,23 @@ export default function useCalendar() {
 
   function handleEventClick(clickInfo) {
     Swal.fire({
-      title: "Are you sure?",
-      text: `You want to delete '${clickInfo.event.title}'`,
+      title: `${t("deleteTitle")}`,
+      text: `${t("deleteConfirmText")} '${clickInfo.event.title}' ?`,
       icon: "warning",
+      reverseButtons: isRtl,
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: `${t("deleteConfirmBtn")}`,
+      cancelButtonText: `${t("cancel")}`,
       background: theme.palette.mode === "dark" ? "#1e1e1e" : "#fff",
       color: theme.palette.mode === "dark" ? "#fff" : "#000",
     }).then((result) => {
       if (result.isConfirmed) {
         clickInfo.event.remove();
         Swal.fire({
-          title: "Deleted!",
-          text: "Your event has been deleted.",
+          title: `${t("deletedTitle")}`,
+          text: `${t("deletedSubTitle")}`,
           icon: "success",
           background: theme.palette.mode === "dark" ? "#1e1e1e" : "#fff",
           color: theme.palette.mode === "dark" ? "#fff" : "#000",

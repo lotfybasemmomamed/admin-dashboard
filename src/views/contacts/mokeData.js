@@ -30,7 +30,7 @@ export const columns = [
     headerName: "Name",
     flex: 1,
     headerAlign: "center",
-    align: "left",
+    align: "center",
   },
   {
     field: "age",
@@ -51,7 +51,7 @@ export const columns = [
     headerName: "E-mail",
     flex: 1.5,
     headerAlign: "center",
-    align: "left",
+    align: "center",
   },
 
   {

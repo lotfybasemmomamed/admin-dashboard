@@ -1,8 +1,8 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import TopBar from "../../components/TopBar";
-import SideBar from "../../components/SideBar";
+import TopBar from "../../components/topbar/TopBar";
+import SideBar from "../../components/sidebar/SideBar";
 import { Toolbar } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
@@ -28,7 +28,7 @@ export default function Dashboard({ mode, setMode, lang, setLang }) {
       />
       <SideBar open={open} handleDrawerClose={handleDrawerClose} />
       {/* content */}
-      <Box sx={{ flex: 1, py:3,px:"2px" }}>
+      <Box sx={{ flex: 1, py: 3, px: "2px" }}>
         <Toolbar />
         <Outlet />
       </Box>

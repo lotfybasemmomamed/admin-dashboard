@@ -1,6 +1,11 @@
 import { Stack, useTheme } from "@mui/material";
 import { ResponsiveLine } from "@nivo/line";
+import { useTranslation } from "react-i18next";
+import i18next from "../utils/i18next";
+import { lineCharPagetLocalization } from "../views/lineChart/localization/lineCharPagetLocalization";
 
+i18next.addResourceBundle("en", "lineCharPagetLocalization", lineCharPagetLocalization.en);
+i18next.addResourceBundle("ar", "lineCharPagetLocalization", lineCharPagetLocalization.ar);
 const performanceAnalyticsdata = [
   {
     id: "New Users",
@@ -54,16 +59,36 @@ const performanceAnalyticsdata = [
     ],
   },
 ];
-export default function Line({data=performanceAnalyticsdata,axiosleftWord="count",axiosBottomWord="transportation"}) {
+export default function Line({
+  data = performanceAnalyticsdata,
+  axiosleftWord = "count",
+  axiosBottomWord = "transportation",
+}) {
   const theme = useTheme();
+  const { t } = useTranslation("lineCharPagetLocalization");
   const isDark = theme.palette.mode === "dark";
   const textColor = isDark ? "#fff" : "#333333";
+  const isRtl = theme.direction === "rtl";
+
+  const translatedData = data.map((series) => ({
+    ...series,
+    id: t(series.id), 
+    data: series.data.map((point) => ({
+      ...point,
+      x: t(point.x), 
+    })),
+  }));
 
   return (
     <Stack sx={{ height: "70vh" }}>
       <ResponsiveLine
-        data={data}
-        margin={{ top: 20, right: 140, bottom: 50, left: 60 }}
+        data={translatedData}
+        margin={{
+          top: 20,
+          right: isRtl ? 60 : 140,
+          bottom: 50,
+          left: isRtl ? 140 : 60,
+        }}
         yScale={{
           type: "linear",
           min: 0,
@@ -71,8 +96,8 @@ export default function Line({data=performanceAnalyticsdata,axiosleftWord="count
           stacked: true,
           reverse: false,
         }}
-        axisBottom={{ legend: axiosBottomWord, legendOffset: 36 }}
-        axisLeft={{ legend: axiosleftWord, legendOffset: -50 }}
+        axisBottom={{ legend: t(axiosBottomWord), legendOffset: 36 }}
+        axisLeft={{ legend: t(axiosleftWord), legendOffset: -50 }}
         enableGridX={false}
         enableGridY={false}
         colors={{ scheme: "dark2" }}
@@ -86,12 +111,13 @@ export default function Line({data=performanceAnalyticsdata,axiosleftWord="count
         useMesh={true}
         legends={[
           {
-            anchor: "bottom-right",
+            anchor: isRtl ? "bottom-left" : "bottom-right",
             direction: "column",
-            translateX: 100,
+            translateX: isRtl ? -40 : 100,
             itemWidth: 80,
             itemHeight: 22,
             symbolShape: "circle",
+            symbolSpacing:isRtl?-25:""
           },
         ]}
         theme={{

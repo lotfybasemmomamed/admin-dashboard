@@ -3,6 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import arLocale from "@fullcalendar/core/locales/ar";
 import {
   Dialog,
   DialogTitle,
@@ -23,9 +24,16 @@ import {
   ListItemText,
 } from "@mui/material";
 import useCalendar from "../../hooks/useCalendar";
+import i18next from "../../utils/i18next";
+import { calendarLocalization } from "./localization/calenderLocalization";
+import { useTranslation } from "react-i18next";
 
+i18next.addResourceBundle("en", "calendar", calendarLocalization.en);
+i18next.addResourceBundle("ar", "calendar", calendarLocalization.ar);
 export default function Calendar() {
-  const {
+const { t, i18n } = useTranslation("calendar"); 
+const isRtl = i18n.language === "ar";
+const {
     theme,
     setCurrentEvents,
     setOpen,
@@ -44,13 +52,13 @@ export default function Calendar() {
     <>
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle sx={{ bgcolor: "background.paper" }}>
-          Add New Event
+          {t("dialogTitle")}
         </DialogTitle>
         <DialogContent sx={{ bgcolor: "background.paper", minWidth: "300px" }}>
           <TextField
             autoFocus
             margin="dense"
-            label="Event Title"
+            label={t("eventLabel")}
             fullWidth
             variant="standard"
             value={newEventTitle}
@@ -58,9 +66,9 @@ export default function Calendar() {
           />
         </DialogContent>
         <DialogActions sx={{ bgcolor: "background.paper" }}>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button onClick={() => setOpen(false)}>{t("cancel")}</Button>
           <Button onClick={handleCloseAndAddEvent} variant="contained">
-            Add
+            {t("add")}
           </Button>
         </DialogActions>
       </Dialog>
@@ -86,7 +94,7 @@ export default function Calendar() {
                 onChange={handleWeekendsToggle}
               />
             }
-            label="Show Weekends"
+            label={t("showWeekends")}
           />
 
           <Typography
@@ -102,7 +110,7 @@ export default function Calendar() {
               borderRadius: "5px",
             }}
           >
-            All Events ({currentEvents.length})
+            {`${t("allEvents")} (${currentEvents.length})`}
           </Typography>
 
           <List sx={{ maxHeight: "400px", overflow: "auto" }}>
@@ -114,7 +122,9 @@ export default function Calendar() {
                     year: "numeric",
                     month: "short",
                     day: "numeric",
+                    locale: i18n.language
                   })}
+                  
                 />
               </ListItem>
             ))}
@@ -140,6 +150,8 @@ export default function Calendar() {
               eventClick={handleEventClick}
               eventsSet={(events) => setCurrentEvents(events)}
               height="80vh"
+              locale={i18n.language === "ar" ? arLocale : "en"}
+              direction={isRtl ? "rtl" : "ltr"}
             />
           </Paper>
         </Box>
